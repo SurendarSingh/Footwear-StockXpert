@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function SignupPage() {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -14,13 +17,22 @@ export default function SignupPage() {
     remember: false,
   });
 
-  const onSignup = async (e) => {
+  const onSignup = async (e: any) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/auth/signup", user);
-      toast.success(res.data.message);
-    } catch (err) {
+      setLoading(true);
+      const res = await axios.post("/api/user/signup", user);
+
+      console.log("Sucess in signup", res.data);
+
+      toast.success("Signup success. Please login to continue.");
+
+      router.push("/login");
+    } catch (err: any) {
+      console.log("Error in signup", err);
       toast.error(err.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,9 +57,9 @@ export default function SignupPage() {
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
-              Create your account
+              {loading ? "Processing..." : "Create your account"}
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6">
               <div>
                 <label
                   htmlFor="username"
@@ -172,6 +184,7 @@ export default function SignupPage() {
               </div>
               <button
                 type="submit"
+                disabled={loading}
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 onClick={onSignup}
               >

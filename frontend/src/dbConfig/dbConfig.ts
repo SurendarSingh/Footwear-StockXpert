@@ -14,8 +14,7 @@ export async function connect() {
       );
       process.exit();
     });
-  } catch (e) {
-    console.log("Something goes wrong!");
-    console.log(e);
+  } catch (err) {
+    console.log("Error connecting to MongoDB: " + err);
   }
 }
