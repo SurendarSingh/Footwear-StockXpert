@@ -1,15 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
+import Navbar from "../../components/Navbar";
+import HeadTitle from "../../components/HeadTitle";
+import MainBody from "../../components/MainBody";
 
 export default function ProfilePage() {
   return (
     <div>
-      <h1>Profile</h1>
+      <Navbar />
+      <HeadTitle title="Dashboard" />
+      <MainBody>
+        <h1>Profile</h1>
+      </MainBody>
     </div>
   );
 }
