@@ -12,15 +12,15 @@ const user = {
 };
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
+  { name: "Dashboard", href: "/", current: true },
+  { name: "Stock", href: "/stock", current: false },
+  { name: "Order", href: "/order", current: false },
+  { name: "Earning", href: "/earning", current: false },
+  { name: "Contact", href: "/contact", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", href: "/profile" },
+  { name: "Settings", href: "/settings" },
   { name: "Log out", href: "/logout" },
 ];
 
