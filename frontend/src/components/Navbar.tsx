@@ -4,31 +4,46 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import geethaFancyLogo from "../../public/geethaFancyLogo.png";
 import defaultUserLogo from "../../public/defaultUserLogo.jpg";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl: defaultUserLogo,
-};
+export default function Navbar() {
+  const router = useRouter();
 
-const navigation = [
-  { name: "Dashboard", href: "/", current: true },
-  { name: "Stock", href: "/stock", current: false },
-  { name: "Order", href: "/order", current: false },
-  { name: "Earning", href: "/earning", current: false },
-  { name: "Contact", href: "/contact", current: false },
-];
-const userNavigation = [
-  { name: "Your Profile", href: "/profile" },
-  { name: "Settings", href: "/settings" },
-  { name: "Log out", href: "/logout" },
-];
+  const user = {
+    name: "Tom Cook",
+    email: "tom@example.com",
+    imageUrl: defaultUserLogo,
+  };
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+  const navigation = [
+    { name: "Dashboard", href: "/", current: true },
+    { name: "Stock", href: "/stock", current: false },
+    { name: "Order", href: "/order", current: false },
+    { name: "Earning", href: "/earning", current: false },
+    { name: "Contact", href: "/contact", current: false },
+  ];
+  const userNavigation = [
+    { name: "Your Profile", href: "/profile" },
+    { name: "Settings", href: "/settings" },
+  ];
 
-export default function Example() {
+  function classNames(...classes: string[]) {
+    return classes.filter(Boolean).join(" ");
+  }
+
+  const handleLogout = async () => {
+    try {
+      await axios.get("/api/user/logout");
+      toast.success("Logout Successfull");
+      router.push("/");
+    } catch (err: any) {
+      console.log(err.message);
+      toast.error("Logout Failed");
+    }
+  };
+
   return (
     <>
       <div className="min-h-full">
@@ -114,6 +129,21 @@ export default function Example() {
                                 )}
                               </Menu.Item>
                             ))}
+
+                            <Menu.Item>
+                              {({ active }) => (
+                                <a
+                                  href="#"
+                                  onClick={handleLogout}
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}
+                                >
+                                  Logout
+                                </a>
+                              )}
+                            </Menu.Item>
                           </Menu.Items>
                         </Transition>
                       </Menu>
@@ -196,6 +226,13 @@ export default function Example() {
                         {item.name}
                       </Disclosure.Button>
                     ))}
+                    <Disclosure.Button
+                      as="a"
+                      onClick={handleLogout}
+                      className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                    >
+                      Logout
+                    </Disclosure.Button>
                   </div>
                 </div>
               </Disclosure.Panel>

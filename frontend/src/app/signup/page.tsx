@@ -59,7 +59,7 @@ export default function SignupPage() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
               {loading ? "Processing..." : "Create your account"}
             </h1>
-            <form className="space-y-4 md:space-y-6">
+            <form className="space-y-4 md:space-y-6" onSubmit={onSignup}>
               <div>
                 <label
                   htmlFor="username"
@@ -186,7 +186,6 @@ export default function SignupPage() {
                 type="submit"
                 disabled={loading}
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                onClick={onSignup}
               >
                 Sign up
               </button>
