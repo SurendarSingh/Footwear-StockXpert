@@ -1,16 +1,24 @@
-"use client";
+import Navbar from "@/components/Navbar";
+import HeadTitle from "@/components/HeadTitle";
+import MainBody from "@/components/MainBody";
+import ProfileDetails from "@/components/ProfileDetails";
+import axios from "axios";
 
-import Navbar from "../../components/Navbar";
-import HeadTitle from "../../components/HeadTitle";
-import MainBody from "../../components/MainBody";
+export default async function ProfilePage() {
+  async function getProfile() {
+    const res = await axios.get("/api/user/profile");
+    return res;
+  }
 
-export default function ProfilePage() {
+  const res = await getProfile();
+  console.log(res.data);
+
   return (
     <div>
       <Navbar />
-      <HeadTitle title="Dashboard" />
+      <HeadTitle title="Your Profile" />
       <MainBody>
-        <h1>Profile</h1>
+        <ProfileDetails />
       </MainBody>
     </div>
   );
