@@ -41,10 +41,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  emailVerificationToken: String,
-  emailVerificationTokenExpiresAt: Date,
+  verifyToken: String,
+  verifyTokenExpiry: Date,
   passwordResetToken: String,
-  passwordResetTokenExpiresAt: Date,
+  passwordResetTokenExpiry: Date,
 
   wishlist: [
     {

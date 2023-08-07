@@ -1,7 +1,8 @@
-import { connect } from "@/utils/connectDatabase";
+import { connect } from "@/utils/database";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import { verifyEmail } from "@/utils/mailer";
 
 connect();
 
@@ -52,6 +53,9 @@ export async function POST(request: NextRequest) {
 
     // Save user
     const savedUser = await newUser.save();
+
+    // Send verification email
+    await verifyEmail(email, savedUser._id.toString());
 
     return NextResponse.json({
       status: "success",
