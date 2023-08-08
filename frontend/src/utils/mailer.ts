@@ -18,9 +18,9 @@ export const verifyEmail = async (email: string, userId: string) => {
       verifyToken: token,
       verifyTokenExpiry: Date.now() + 24 * 60 * 60 * 1000,
     });
-    const link = `${process.env.DOMAIN}/api/user/verify-email?token=${token}`;
+    const link = `${process.env.DOMAIN!}/verifyemail?token=${token}`;
     const message = {
-      from: process.env.NODEMAILER_USER,
+      from: process.env.NODEMAILER_EMAIL!,
       to: email,
       subject: "Verify your email address - Geetha Fancy Store",
       html: `
