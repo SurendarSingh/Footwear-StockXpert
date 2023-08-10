@@ -25,9 +25,9 @@ export default function SignupPage() {
 
       console.log("Sucess in signup", res.data);
 
-      toast.success("Signup success. Please login to continue.");
+      toast.success("Signup successful. Please verify your email.");
 
-      router.push("/login");
+      router.push("/");
     } catch (err: any) {
       console.log("Error in signup", err);
       toast.error(err.response.data.message);

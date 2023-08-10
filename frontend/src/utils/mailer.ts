@@ -1,6 +1,9 @@
 import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 import User from "@/models/userModel";
+import { connect } from "@/utils/database";
+
+connect();
 
 const transport = nodemailer.createTransport({
   host: process.env.NODEMAILER_HOST!,

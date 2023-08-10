@@ -10,10 +10,7 @@ export async function POST(request: NextRequest) {
     const { token } = reqBody;
 
     if (!token) {
-      return NextResponse.json(
-        { error: "Invalid or expired token" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "Token not found" }, { status: 400 });
     }
 
     const user = await User.findOne({
@@ -21,27 +18,25 @@ export async function POST(request: NextRequest) {
       verifyTokenExpiry: { $gt: Date.now() },
     });
 
-    console.log(user);
-
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid or expired token" },
+        { status: "failed", message: "Invalid or expired token" },
         { status: 400 }
       );
     }
 
-    user.isVerified = true;
+    user.isEmailVerified = true;
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
     await user.save();
 
     return NextResponse.json(
-      { status: "success", message: "Email verified" },
+      { status: "success", message: "Verified" },
       { status: 200 }
     );
   } catch (err: any) {
     return NextResponse.json(
-      { status: "error", error: err.message },
+      { status: "error", message: err.message },
       { status: 500 }
     );
   }
