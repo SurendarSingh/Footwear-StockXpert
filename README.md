@@ -52,7 +52,7 @@ NODEMAILER_PASS=
 <p>5. Start the Next.js development server</p>
 
 ```bash
-npm run app
+npm run dev
 ```
 
 The application will be accessible at `http://localhost:3000/`.
