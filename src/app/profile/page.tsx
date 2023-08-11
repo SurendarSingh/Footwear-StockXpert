@@ -5,13 +5,13 @@ import ProfileDetails from "@/components/ProfileDetails";
 import axios from "axios";
 
 export default async function ProfilePage() {
-  async function getProfile() {
-    const res = await axios.get("/api/user/profile");
-    return res;
-  }
+  // async function getProfile() {
+  //   const res = await axios.get("/api/user/profile");
+  //   return res;
+  // }
 
-  const res = await getProfile();
-  console.log(res.data);
+  // const res = await getProfile();
+  // console.log(res.data);
 
   return (
     <div>
