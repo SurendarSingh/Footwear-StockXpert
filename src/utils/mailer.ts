@@ -2,7 +2,7 @@ import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 import User from "@/models/userModel";
 import { connect } from "@/utils/database";
-import emailTemplate from "@/components/emailTemplate";
+import EmailTemplate from "@/components/EmailTemplate";
 
 connect();
 
@@ -26,7 +26,7 @@ export const verifyEmail = async (email: string, userId: string) => {
       from: process.env.NODEMAILER_USER!,
       to: email,
       subject: "Welcome to Geetha Fancy Store",
-      html: emailTemplate(link),
+      html: EmailTemplate(link),
     };
     await transport.sendMail(message);
   } catch (err) {

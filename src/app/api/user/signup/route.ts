@@ -3,6 +3,7 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { verifyEmail } from "@/utils/mailer";
+import jwt from "jsonwebtoken";
 
 connect();
 
@@ -55,11 +56,23 @@ export async function POST(request: NextRequest) {
     // Send verification email
     await verifyEmail(email, savedUser._id.toString());
 
-    return NextResponse.json({
+    // Create and assign a token
+    const token = await jwt.sign(
+      { _id: savedUser._id, email: savedUser.email },
+      process.env.TOKEN_SECRET!
+    );
+
+    const response = NextResponse.json({
       status: "success",
       message: "User created successfully",
       data: savedUser,
     });
+
+    response.cookies.set("token", token, {
+      httpOnly: true,
+    });
+
+    return response;
   } catch (err: any) {
     return NextResponse.json(
       { status: "error", message: err.message },
