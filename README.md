@@ -39,14 +39,11 @@ npm install
 <p>4. Create a .env file and specify the required environment variables as in sample.env:</p>
 
 ```js
-DOMAIN="http://localhost:3000"
-MONGO_URI="mongodb://127.0.0.1:27017/stockManagement"
-TOKEN_SECRET=yourownsecret
-NODEMAILER_EMAIL="yourown@email.com"
-NODEMAILER_HOST="sandbox.smtp.mailtrap.io"
-NODEMAILER_PORT=2525
-NODEMAILER_USER=
-NODEMAILER_PASS=
+DOMAIN = "http://localhost:3000";
+MONGO_URI = "mongodb://127.0.0.1:27017/stockXpertDB";
+TOKEN_SECRET = yourownsecret;
+NODEMAILER_USER = "your@email.com";
+NODEMAILER_PASS = "your-gmail-app-password";
 ```
 
 <p>5. Start the Next.js development server</p>
