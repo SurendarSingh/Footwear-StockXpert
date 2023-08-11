@@ -11,8 +11,6 @@ export async function POST(request: NextRequest) {
     const reqBody = await request.json();
     const { username, email, password, remember } = reqBody;
 
-    console.log("Request from signup ", reqBody);
-
     if (!username || !email || !password) {
       return NextResponse.json(
         { status: "error", message: "Please fill all the fields" },

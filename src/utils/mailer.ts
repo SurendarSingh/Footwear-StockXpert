@@ -2,12 +2,12 @@ import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 import User from "@/models/userModel";
 import { connect } from "@/utils/database";
+import emailTemplate from "@/components/emailTemplate";
 
 connect();
 
 const transport = nodemailer.createTransport({
-  host: process.env.NODEMAILER_HOST!,
-  port: Number(process.env.EMAIL_PORT) || 0,
+  service: "gmail",
   auth: {
     user: process.env.NODEMAILER_USER!,
     pass: process.env.NODEMAILER_PASS!,
@@ -23,16 +23,10 @@ export const verifyEmail = async (email: string, userId: string) => {
     });
     const link = `${process.env.DOMAIN!}/verifyemail?token=${token}`;
     const message = {
-      from: process.env.NODEMAILER_EMAIL!,
+      from: process.env.NODEMAILER_USER!,
       to: email,
-      subject: "Verify your email address - Geetha Fancy Store",
-      html: `
-        <div>
-          <h1>Verify your email address</h1>
-          <p>Thanks for creating an account with Geetha Fancy Store. Please click the button below to verify your email address.</p>
-          <a href="${link}" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Verify Email</a>
-        </div>  
-      `,
+      subject: "Welcome to Geetha Fancy Store",
+      html: emailTemplate(link),
     };
     await transport.sendMail(message);
   } catch (err) {
