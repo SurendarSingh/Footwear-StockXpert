@@ -2,7 +2,8 @@ import nodemailer from "nodemailer";
 import bcryptjs from "bcryptjs";
 import User from "@/models/userModel";
 import { connect } from "@/utils/database";
-import EmailTemplate from "@/components/EmailTemplate";
+import fs from "fs";
+import path from "path";
 
 connect();
 
@@ -22,11 +23,19 @@ export const verifyEmail = async (email: string, userId: string) => {
       verifyTokenExpiry: Date.now() + 24 * 60 * 60 * 1000,
     });
     const link = `${process.env.DOMAIN!}/verifyemail?token=${token}`;
+
+    const html = fs.readFileSync(
+      path.join(process.cwd(), "public", "templates", "verifyEmail.html"),
+      "utf8"
+    );
+
+    const htmlToSend = html.replace("{{link}}", link);
+
     const message = {
       from: process.env.NODEMAILER_USER!,
       to: email,
       subject: "Welcome to Geetha Fancy Store",
-      html: EmailTemplate(link),
+      html: htmlToSend,
     };
     await transport.sendMail(message);
   } catch (err) {
