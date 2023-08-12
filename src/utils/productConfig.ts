@@ -26,11 +26,11 @@ export const sizes = {
 };
 
 export const colors = [
-  "Black",
-  "Brown",
-  "White",
-  "Blue",
-  "Red",
-  "Yellow",
-  "Green",
+  ["White", "gray", "100"],
+  ["Black", "gray", "600"],
+  ["Blue", "blue", "500"],
+  ["Green", "green", "400"],
+  ["Red", "red", "400"],
+  ["Yellow", "yellow", "100"],
+  ["Pink", "pink", "100"],
 ];

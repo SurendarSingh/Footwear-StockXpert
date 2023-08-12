@@ -151,26 +151,32 @@ export default function AddProduct({
             >
               Color
             </label>
-            <div className="sm:col-span-2 mx-auto mb-4">
-              <div className="relative flex items-center justify-between">
-                {colors.map((color: string, index: number) => (
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex flex-wrap">
+                {colors.map((color: string[], index: number) => (
                   <button
                     key={index}
                     type="button"
-                    className={`flex items-center w-8 h-8 m-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-primary-500 ${
-                      color === product.color
+                    className={`m-1.5 text-sm font-medium mr-2 px-3 py-1.5 rounded focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-primary-500
+                    ${
+                      color[0] === product.color
                         ? "ring-4 ring-offset-2 ring-primary-500"
                         : ""
-                    }`}
-                    style={{ backgroundColor: color }}
-                    onClick={() =>
-                      setProduct({ ...product, color: color.toLowerCase() })
                     }
-                  ></button>
+                    bg-${color[1]}-${color[2]} text-${color[1]}-${
+                      Number(color[2]) + Number(700)
+                    }
+                    `}
+                    onClick={() => setProduct({ ...product, color: color[0] })}
+                  >
+                    {color[0]}
+                  </button>
                 ))}
               </div>
             </div>
           </div>
+
+          <div></div>
 
           <div className="flex items-center space-x-4">
             <button
