@@ -35,6 +35,7 @@ export const verifyEmail = async (email: string, userId: string) => {
       from: process.env.NODEMAILER_USER!,
       to: email,
       subject: "Welcome to Geetha Fancy Store",
+      text: htmlToSend,
       html: htmlToSend,
     };
     await transport.sendMail(message);
