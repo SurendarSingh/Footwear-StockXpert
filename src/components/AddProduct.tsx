@@ -1,11 +1,27 @@
-export default function AddProduct() {
+export default function AddProduct({
+  handleSubmit,
+  product,
+  setProduct,
+  brands,
+  categories,
+  colors,
+  sizes,
+}: {
+  handleSubmit: any;
+  product: any;
+  setProduct: any;
+  brands: any;
+  categories: any;
+  colors: any;
+  sizes: any;
+}) {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="max-w-2xl px-4 py-8 mx-auto lg:py-16">
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white md:text-2xl md:mb-4 text-center">
           Add product
         </h2>
-        <form action="#">
+        <form onSubmit={handleSubmit}>
           <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
             <div className="sm:col-span-2 flex items-center justify-center w-full">
               <label
@@ -40,7 +56,7 @@ export default function AddProduct() {
               </label>
             </div>
 
-            <div className="sm:col-span-2">
+            <div className="w-full">
               <label
                 htmlFor="name"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -52,28 +68,15 @@ export default function AddProduct() {
                 name="name"
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value="Apple iMac 27&ldquo;"
-                placeholder="Type product name"
+                value={product.name}
+                placeholder="AB1234"
                 required
+                onChange={(e) =>
+                  setProduct({ ...product, name: e.target.value })
+                }
               />
             </div>
-            <div className="w-full">
-              <label
-                htmlFor="brand"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Brand
-              </label>
-              <input
-                type="text"
-                name="brand"
-                id="brand"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value="Apple"
-                placeholder="Product brand"
-                required
-              />
-            </div>
+
             <div className="w-full">
               <label
                 htmlFor="price"
@@ -86,11 +89,37 @@ export default function AddProduct() {
                 name="price"
                 id="price"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value="2999"
-                placeholder="$299"
+                value={product.price}
+                placeholder="249"
                 required
+                onChange={(e) =>
+                  setProduct({ ...product, price: e.target.value })
+                }
               />
             </div>
+
+            <div>
+              <label
+                htmlFor="brand"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Brand
+              </label>
+              <select
+                id="brand"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={(e) =>
+                  setProduct({ ...product, brand: e.target.value })
+                }
+              >
+                {brands.map((brand: string, index: number) => (
+                  <option key={index} value={brand}>
+                    {brand}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div>
               <label
                 htmlFor="category"
@@ -101,57 +130,25 @@ export default function AddProduct() {
               <select
                 id="category"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                onChange={(e) =>
+                  setProduct({ ...product, category: e.target.value })
+                }
               >
-                <option selected>Electronics</option>
-                <option value="TV">TV/Monitors</option>
-                <option value="PC">PC</option>
-                <option value="GA">Gaming/Console</option>
-                <option value="PH">Phones</option>
+                {categories.map((category: string, index: number) => (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
             </div>
-            <div>
-              <label
-                htmlFor="item-weight"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Item Weight (kg)
-              </label>
-              <input
-                type="number"
-                name="item-weight"
-                id="item-weight"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                value="15"
-                placeholder="Ex. 12"
-                required
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label
-                htmlFor="description"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                rows={8}
-                className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Write a product description here..."
-              >
-                Standard glass, 3.8GHz 8-core 10th-generation Intel Core i7
-                processor, Turbo Boost up to 5.0GHz, 16GB 2666MHz DDR4 memory,
-                Radeon Pro 5500 XT with 8GB of GDDR6 memory, 256GB SSD storage,
-                Gigabit Ethernet, Magic Mouse 2, Magic Keyboard - US
-              </textarea>
-            </div>
           </div>
+
           <div className="flex items-center space-x-4">
             <button
               type="submit"
               className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
-              Update product
+              Add product
             </button>
             <button
               type="button"

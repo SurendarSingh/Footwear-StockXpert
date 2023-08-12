@@ -1,24 +1,48 @@
+"use client";
+
 import Navbar from "@/components/Navbar";
 import HeadTitle from "@/components/HeadTitle";
 import MainBody from "@/components/MainBody";
 import AddProduct from "@/components/AddProduct";
+import { brands, categories, colors, sizes } from "@/utils/productConfig";
 import axios from "axios";
+import { useState } from "react";
 
-export default async function ProfilePage() {
-  // async function getProfile() {
-  //   const res = await axios.get("/api/user/profile");
-  //   return res;
-  // }
+export default function ProfilePage() {
+  const [product, setProduct] = useState({
+    name: "",
+    price: null,
+    brand: "",
+    category: "",
+    size: {},
+    color: "",
+    image: "",
+  });
 
-  // const res = await getProfile();
-  // console.log(res.data);
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("/api/product", product);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
       <Navbar />
       <HeadTitle title="Add Product" />
       <MainBody>
-        <AddProduct />
+        <AddProduct
+          handleSubmit={handleSubmit}
+          product={product}
+          setProduct={setProduct}
+          brands={brands}
+          categories={categories}
+          colors={colors}
+          sizes={sizes}
+        />
       </MainBody>
     </div>
   );
