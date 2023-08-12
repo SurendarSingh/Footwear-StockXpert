@@ -38,9 +38,9 @@ export default function AddProduct({
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                     />
                   </svg>
@@ -69,6 +69,7 @@ export default function AddProduct({
                 id="name"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 value={product.name}
+                style={{ textTransform: "uppercase" }}
                 placeholder="AB1234"
                 required
                 onChange={(e) =>
@@ -143,6 +144,34 @@ export default function AddProduct({
             </div>
           </div>
 
+          <div>
+            <label
+              htmlFor="color"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Color
+            </label>
+            <div className="sm:col-span-2 mx-auto mb-4">
+              <div className="relative flex items-center justify-between">
+                {colors.map((color: string, index: number) => (
+                  <button
+                    key={index}
+                    type="button"
+                    className={`flex items-center w-8 h-8 m-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-primary-500 ${
+                      color === product.color
+                        ? "ring-4 ring-offset-2 ring-primary-500"
+                        : ""
+                    }`}
+                    style={{ backgroundColor: color }}
+                    onClick={() =>
+                      setProduct({ ...product, color: color.toLowerCase() })
+                    }
+                  ></button>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <div className="flex items-center space-x-4">
             <button
               type="submit"
@@ -161,9 +190,9 @@ export default function AddProduct({
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
               Delete

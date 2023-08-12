@@ -25,4 +25,12 @@ export const sizes = {
   13: 0,
 };
 
-export const colors = ["Black", "Brown", "White", "Blue", "Red", "Green"];
+export const colors = [
+  "Black",
+  "Brown",
+  "White",
+  "Blue",
+  "Red",
+  "Yellow",
+  "Green",
+];

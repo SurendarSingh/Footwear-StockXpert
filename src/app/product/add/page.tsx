@@ -11,7 +11,7 @@ import { useState } from "react";
 export default function ProfilePage() {
   const [product, setProduct] = useState({
     name: "",
-    price: null,
+    price: "",
     brand: "",
     category: "",
     size: {},
@@ -22,8 +22,7 @@ export default function ProfilePage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/product", product);
-      console.log(res);
+      console.log(product);
     } catch (error) {
       console.log(error);
     }
