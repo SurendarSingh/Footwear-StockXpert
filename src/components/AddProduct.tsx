@@ -208,9 +208,9 @@ export default function AddProduct({
                 <table className="w-full text-center text-sm text-gray-500 dark:text-gray-400">
                   <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                      <th scope="col" className="px-6 py-3">
+                      {/* <th scope="col" className="px-6 py-3">
                         Disable
-                      </th>
+                      </th> */}
                       <th scope="col" className="px-6 py-3">
                         Size
                       </th>
@@ -225,7 +225,7 @@ export default function AddProduct({
                         className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
                         key={index}
                       >
-                        <td className="px-6 py-4">
+                        {/* <td className="px-6 py-4">
                           <button type="button">
                             <span className="sr-only">Disable button</span>
                             <svg
@@ -248,7 +248,7 @@ export default function AddProduct({
                               />
                             </svg>
                           </button>
-                        </td>
+                        </td> */}
                         <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                           {key}
                         </td>
