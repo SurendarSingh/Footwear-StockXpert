@@ -34,7 +34,7 @@ const productSchema = new mongoose.Schema(
       type: Buffer,
     },
     size: {
-      type: Object,
+      type: sizes,
       required: [true, "Please select size"],
       validate: {
         validator: function (v: any) {

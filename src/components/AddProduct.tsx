@@ -5,7 +5,6 @@ export default function AddProduct({
   brands,
   categories,
   colors,
-  sizes,
 }: {
   handleSubmit: any;
   product: any;
@@ -13,7 +12,6 @@ export default function AddProduct({
   brands: any;
   categories: any;
   colors: any;
-  sizes: any;
 }) {
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -52,7 +50,12 @@ export default function AddProduct({
                     PNG, JPG or JPEG (MAX. 10MB)
                   </p>
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" />
+                <input
+                  id="dropzone-file"
+                  type="file"
+                  className="hidden"
+                  accept="image/png, image/jpeg, image/jpg"
+                />
               </label>
             </div>
 
@@ -73,7 +76,9 @@ export default function AddProduct({
                 placeholder="AB1234"
                 required
                 onChange={(e) =>
-                  setProduct({ ...product, name: e.target.value })
+                  setProduct((prevProduct: any) => {
+                    return { ...prevProduct, name: e.target.value };
+                  })
                 }
               />
             </div>
@@ -94,7 +99,9 @@ export default function AddProduct({
                 placeholder="249"
                 required
                 onChange={(e) =>
-                  setProduct({ ...product, price: e.target.value })
+                  setProduct((prevProduct: any) => {
+                    return { ...prevProduct, price: e.target.value };
+                  })
                 }
               />
             </div>
@@ -109,8 +116,11 @@ export default function AddProduct({
               <select
                 id="brand"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                value={product.brand}
                 onChange={(e) =>
-                  setProduct({ ...product, brand: e.target.value })
+                  setProduct((prevProduct: any) => {
+                    return { ...prevProduct, brand: e.target.value };
+                  })
                 }
               >
                 {brands.map((brand: string, index: number) => (
@@ -131,13 +141,19 @@ export default function AddProduct({
               <select
                 id="category"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                onChange={(e) =>
-                  setProduct({ ...product, category: e.target.value })
-                }
+                onChange={(e) => {
+                  setProduct((prevProduct: any) => {
+                    return {
+                      ...prevProduct,
+                      category: categories[e.target.value][0],
+                      size: categories[e.target.value][1],
+                    };
+                  });
+                }}
               >
-                {categories.map((category: string, index: number) => (
-                  <option key={index} value={category}>
-                    {category}
+                {categories.map((category: any, index: number) => (
+                  <option key={index} value={index}>
+                    {category[0]}
                   </option>
                 ))}
               </select>
@@ -167,11 +183,157 @@ export default function AddProduct({
                       Number(color[2]) + Number(700)
                     }
                     `}
-                    onClick={() => setProduct({ ...product, color: color[0] })}
+                    onClick={() =>
+                      setProduct((prevProduct: any) => {
+                        return { ...prevProduct, color: color[0] };
+                      })
+                    }
                   >
                     {color[0]}
                   </button>
                 ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="color"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Size
+            </label>
+            <div className="sm:col-span-2 flex items-center justify-center w-full my-4">
+              <div className="flex flex-col items-center justify-center w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="w-full text-center text-sm text-gray-500 dark:text-gray-400">
+                  <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                      <th scope="col" className="px-6 py-3">
+                        Disable
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Size
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Qty
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(product.size).map((key, index) => (
+                      <tr
+                        className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
+                        key={index}
+                      >
+                        <td className="px-6 py-4">
+                          <button type="button">
+                            <span className="sr-only">Disable button</span>
+                            <svg
+                              className="inline-flex h-10 w-10 items-center justify-center rounded-full p-1 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M16.3394 9.32245C16.7434 8.94589 16.7657 8.31312 16.3891 7.90911C16.0126 7.50509 15.3798 7.48283 14.9758 7.85938L12.0497 10.5866L9.32245 7.66048C8.94589 7.25647 8.31312 7.23421 7.90911 7.61076C7.50509 7.98731 7.48283 8.62008 7.85938 9.0241L10.5866 11.9502L7.66048 14.6775C7.25647 15.054 7.23421 15.6868 7.61076 16.0908C7.98731 16.4948 8.62008 16.5171 9.0241 16.1405L11.9502 13.4133L14.6775 16.3394C15.054 16.7434 15.6868 16.7657 16.0908 16.3891C16.4948 16.0126 16.5171 15.3798 16.1405 14.9758L13.4133 12.0497L16.3394 9.32245Z"
+                                fill="currentColor"
+                              />
+                              <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="M1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12ZM12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </button>
+                        </td>
+                        <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                          {key}
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center justify-center space-x-3">
+                            <button
+                              className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-white p-1 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                              type="button"
+                              onClick={() => {
+                                if (product.size[key] > 0) {
+                                  setProduct((prevProduct: any) => {
+                                    return {
+                                      ...prevProduct,
+                                      size: {
+                                        ...prevProduct.size,
+                                        [key]: prevProduct.size[key] - 1,
+                                      },
+                                    };
+                                  });
+                                }
+                              }}
+                            >
+                              <span className="sr-only">Quantity button</span>
+                              <svg
+                                className="h-3 w-3"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 18 2"
+                              >
+                                <path
+                                  stroke="currentColor"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M1 1h16"
+                                />
+                              </svg>
+                            </button>
+                            <div>
+                              <input
+                                type="number"
+                                className="block w-14 rounded-lg border border-gray-300 bg-gray-50 px-2.5 py-1 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                value={product.size[key]}
+                                readOnly
+                              />
+                            </div>
+                            <button
+                              className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-white p-1 text-sm font-medium text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                              type="button"
+                              onClick={() => {
+                                setProduct((prevProduct: any) => {
+                                  return {
+                                    ...prevProduct,
+                                    size: {
+                                      ...prevProduct.size,
+                                      [key]: prevProduct.size[key] + 1,
+                                    },
+                                  };
+                                });
+                              }}
+                            >
+                              <span className="sr-only">Quantity button</span>
+                              <svg
+                                className="h-3 w-3"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 18 18"
+                              >
+                                <path
+                                  stroke="currentColor"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                  d="M9 1v16M1 9h16"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
