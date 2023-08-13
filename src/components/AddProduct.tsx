@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AddProduct({
   handleSubmit,
   product,
@@ -54,7 +56,26 @@ export default function AddProduct({
                   id="dropzone-file"
                   type="file"
                   className="hidden"
-                  accept="image/png, image/jpeg, image/jpg"
+                  accept="image/*"
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    console.log("file is", file);
+
+                    if (file) {
+                      setProduct((prevProduct: any) => {
+                        return {
+                          ...prevProduct,
+                          image: URL.createObjectURL(file),
+                        };
+                      });
+                    }
+                  }}
+                />
+                <Image
+                  src={product.image}
+                  alt="Product Image"
+                  width={100}
+                  height={100}
                 />
               </label>
             </div>

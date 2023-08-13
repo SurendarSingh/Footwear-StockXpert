@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { brands, categories, colors, sizes } from "@/utils/productConfig";
+import { brands, categories, colors } from "@/utils/productConfig";
 
 const productSchema = new mongoose.Schema(
   {
@@ -32,9 +32,10 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: Buffer,
+      required: [true, "Please upload the imgae"],
     },
     size: {
-      type: sizes,
+      type: Object,
       required: [true, "Please select size"],
       validate: {
         validator: function (v: any) {
