@@ -59,8 +59,6 @@ export default function AddProduct({
                   accept="image/*"
                   onChange={async (e) => {
                     const file = e.target.files?.[0];
-                    console.log("file is", file);
-
                     if (file) {
                       setProduct((prevProduct: any) => {
                         return {

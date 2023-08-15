@@ -21,12 +21,14 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.40.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "flowbite": "^1.7.0",
     "flowbite-react": "^0.5.0",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.1",
+    "multer": "^1.4.5-lts.1",
     "next": "13.4.12",
     "nodemailer": "^6.9.4",
     "postcss": "8.4.27",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
+    "@types/multer": "^1.4.7",
     "@types/nodemailer": "^6.4.9"
   }
 }

@@ -13,8 +13,8 @@ export default function ProfilePage() {
     name: "",
     price: "",
     brand: brands[0],
-    category: categories[0][0],
-    size: categories[0][1],
+    category: categories[0][0] as string,
+    size: categories[0][1] as { [key: number]: number },
     color: "",
     image: "",
   });
@@ -22,7 +22,10 @@ export default function ProfilePage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      console.log(product.size);
+      console.log(product);
+      const formData = new FormData();
+      formData.append("size", product.size);
+      const res = await axios.post("/api/product", formData);
     } catch (error) {
       console.log(error);
     }
