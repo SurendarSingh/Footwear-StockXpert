@@ -7,6 +7,7 @@ import AddProduct from "@/components/AddProduct";
 import { brands, categories, colors } from "@/utils/productConfig";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
   const [product, setProduct] = useState({
@@ -22,12 +23,26 @@ export default function ProfilePage() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      console.log(product);
+      if (!product.name) {
+        toast.error("Please enter name");
+        return;
+      } else if (!product.price) {
+        toast.error("Please enter price");
+        return;
+      } else if (!product.color) {
+        toast.error("Please select color");
+        return;
+      } else if (!product.image) {
+        toast.error("Please upload image");
+        return;
+      }
       const formData = new FormData();
-      formData.append("size", product.size);
-      const res = await axios.post("/api/product", formData);
+      formData.append("productDetails", JSON.stringify(product));
+      formData.append("productImage", product.image);
+      const res = await axios.post("/api/product/add", formData);
+      console.log(res.data);
     } catch (error) {
-      console.log(error);
+      console.log("Error in adding product", error);
     }
   };
 
